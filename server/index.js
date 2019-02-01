@@ -3,7 +3,7 @@ let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
 
-app.post('/', function (req, res) {
+app.post('/repos', function (req, res) {
   // TODO - your code here!
   // This route should take the github username provided
   // and get the repo information from the github API, then
@@ -11,7 +11,7 @@ app.post('/', function (req, res) {
   console.log('I am posting to the server!');
 });
 
-app.get('/', function (req, res) {
+app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
   console.log("I am recieving get requests!");
