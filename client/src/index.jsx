@@ -3,20 +3,24 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
-import { getReposByUsername } from '../../helpers/github';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
     }
 
   }
 
   search(term) {
-    console.log(`${term} was searched`);
-    getReposByUsername(term);
+    return fetch(`http://localhost:1128/repos`, {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: term }) // do I need this line?
+    }).then(response => console.log("Success", JSON.stringify(response)))
+      .catch(error => console.error(error));
   }
 
   render() {
