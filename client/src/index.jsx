@@ -19,10 +19,10 @@ class App extends React.Component {
       mode: "cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username: term }) // do I need this line?
-    }).then(response => console.log("Success", JSON.stringify(response)))
+    }).then(response => console.log(response.json()))
+      //.then((json) => console.log(json))
       .catch(error => console.error(error));
   }
-
   render() {
     return (<div>
       <h1>Github Fetcher</h1>
