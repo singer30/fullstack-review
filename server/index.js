@@ -27,10 +27,18 @@ app.post('/repos', function (req, res) {
   console.log((req.body.username));
 });
 
+
+
 app.get('/repos', function (req, res) {
   // TODO - your code here!
-  // This route should send back the top 25 repos
-  console.log("I am recieving get requests!");
+  // This route should access the database
+  // make a query for the 25 repos, then
+  // send back the results of the query.
+  // res.send();
+  query(25, function (err, response) {
+    console.log("am I making a get request to the right place?")
+    res.send(JSON.parse(response));
+  })
 });
 
 let port = 1128;

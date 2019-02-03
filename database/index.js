@@ -44,6 +44,14 @@ let save = (repos, callback) => { //data,
   });
 }
 
+let query = (max, callback) => {
+  Repo.
+    find({}).
+    sort({ created_at: -1 }).
+    limit(max).
+    exec(callback);
+}
+
 
 
 module.exports.save = save;

@@ -10,7 +10,20 @@ class App extends React.Component {
     this.state = {
       repos: [],
     }
+    const onLoad = this.onLoad.bind(this);
+  }
 
+  onLoad() {
+    return fetch(`http://localhost:1228/repos`, {
+      method: "GET",
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => console.log('am i getting?'))  //this.setState({ repos: response })
+      .catch(error => console.error(error));
+  }
+
+  componentDidMount() {
+    this.onLoad();
   }
 
   search(term) {
@@ -33,3 +46,5 @@ class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+
+// onLoad={this.onLoad.bind(this)}
