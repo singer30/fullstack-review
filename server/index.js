@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { getReposByUsername } = require('../helpers/github.js');
+const { save } = require('../database/index.js');
 
 let app = express();
 
@@ -17,10 +18,12 @@ app.post('/repos', function (req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
-  var data = getReposByUsername(username, save(err, data)); // delete the console.log and see if it consoles
-  //res.send(getReposByUsername(username)); // delete the send and see if it consoles
-  // being ran twice, confimed
-  save(err, data);
+  getReposByUsername(username, (err, repos) => {
+    save(repos, function (err, results) {
+      res.send(err, results);
+    })
+  })
+
   console.log((req.body.username));
 });
 

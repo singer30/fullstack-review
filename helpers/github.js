@@ -1,7 +1,8 @@
 const request = require('request');
 const config = require('../config.js');
+//const save = require('../database/index.js');
 
-let getReposByUsername = (string) => { //callback needed to allow save to go all the way through.
+let getReposByUsername = function (string, callback) { //callback needed to allow save to go all the way through.
   // TODO - Use the request module to request repos for a specific
   // user from the github API
 
@@ -14,20 +15,13 @@ let getReposByUsername = (string) => { //callback needed to allow save to go all
       'Authorization': `token ${config.TOKEN}`
     },
   };
-
-  function callback(error, response, body) {
-    // going to take in save
-    //if (!error & response.status == 200) {
-    console.log("did i get here");
-    //console.log('error will robinson', error);
-    //console.log('this is the response', response);
-    console.log('this is the body', JSON.parse(body));
-
-  }
-  //}
-
-  request(options, callback);
-
+  request(options, function (err, repos) {
+    if (err) {
+      callback(err);// callback or save or throw error.
+    } else {
+      callback(null, repos)
+    }
+  });
 }
 
 
